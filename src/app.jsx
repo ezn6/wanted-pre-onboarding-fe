@@ -4,6 +4,8 @@ import { Route, Routes } from 'react-router-dom';
 import Todos from './components/todos/todos';
 
 function App({ auth, token, todoService }) {
+  console.log('app.jsx');
+
   return (
     <Routes>
       <Route path='/' element={<Login auth={auth} token={token} />} />

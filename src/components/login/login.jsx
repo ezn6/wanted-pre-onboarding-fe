@@ -53,6 +53,7 @@ const Login = ({ auth, token }) => {
     }
   });
 
+  console.log('login.jsx');
   return (
     <form onSubmit={onSubmit}>
       <input

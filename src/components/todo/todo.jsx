@@ -7,9 +7,10 @@ const Todo = memo(({ content }) => {
     console.log('hi');
   };
 
+  // console.log('todo!.jsx');
   return (
     <li>
-      <input type='checkbox' checked={content.isCompleted} />
+      <input type='checkbox' />
       <span>{content.todo}</span>
       <button onClick={onClick}>수정</button>
       <button>삭제</button>
