@@ -41,6 +41,11 @@ const Todos = memo(({ token, todoService }) => {
     await todoService.getTodos().then((data) => setTodos((prev) => data));
   };
 
+  const onUpdate = async (text, completed, id) => {
+    await todoService.updateTodo(text, completed, id);
+    await todoService.getTodos().then((data) => setTodos((prev) => data));
+  };
+
   console.log('todos.jsx');
   return (
     <div className={styles.container}>
@@ -56,6 +61,7 @@ const Todos = memo(({ token, todoService }) => {
               content={item}
               todoService={todoService}
               onDelete={onDelete}
+              onUpdate={onUpdate}
             />
           ))}
         </ul>

@@ -1,7 +1,7 @@
 import React, { memo, useEffect, useState } from 'react';
 import styles from './todo.module.css';
 
-const Todo = memo(({ content, todoService, onDelete }) => {
+const Todo = memo(({ content, todoService, onDelete, onUpdate }) => {
   const [update, setUpate] = useState(false);
   const [completed, setComopleted] = useState(content.isCompleted);
   const [text, setText] = useState(content.todo);
@@ -14,8 +14,8 @@ const Todo = memo(({ content, todoService, onDelete }) => {
     setText(e.target.value);
   };
 
-  const onUpdate = () => {
-    todoService.updateTodo(text, completed, content.id);
+  const onUpdateTodo = () => {
+    onUpdate(text, completed, content.id);
   };
 
   const onChecked = () => {
@@ -41,9 +41,9 @@ const Todo = memo(({ content, todoService, onDelete }) => {
       <span className={styles.todotext}>{content.todo}</span>
       {update && (
         <div className={styles.section}>
-          <form onSubmit={onUpdate}>
+          <form onSubmit={onUpdateTodo}>
             <input onChange={onChange} type='text' value={text} />
-            <button onClick={onUpdate}>제출</button>
+            <button onClick={onUpdateTodo}>제출</button>
           </form>
           <button onClick={onClick}>취소</button>
         </div>
