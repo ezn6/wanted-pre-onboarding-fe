@@ -24,6 +24,7 @@ class Auth {
     }
     console.log(data);
     this.tokenStorage.saveToken(data.access_token);
+    return data;
   }
 
   async signIn(email, password) {
@@ -48,6 +49,7 @@ class Auth {
     console.log(data);
     console.log(res);
     this.tokenStorage.saveToken(data.access_token);
+    return data;
   }
 
   logout() {

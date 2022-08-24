@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const Login = ({ auth }) => {
+const Login = ({ auth, token }) => {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -36,18 +36,22 @@ const Login = ({ auth }) => {
   }, [email, password]);
 
   // submit : 회원가입인지 로그인인지 판별
-  const onSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
     if (signup) {
-      auth.signUp(email, password);
+      await auth.signUp(email, password);
     } else {
-      auth.signIn(email, password);
-      navigate('/todos');
+      await auth.signIn(email, password);
+      navigate('/todo');
     }
   };
 
   // 토큰 있다면 /todos로 리다이렉트
-  useEffect(() => {});
+  useEffect(() => {
+    if (token.getToken()) {
+      navigate('/todo');
+    }
+  });
 
   return (
     <form onSubmit={onSubmit}>
