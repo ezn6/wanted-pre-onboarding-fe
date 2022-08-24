@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import styles from './login.module.css';
 
 const Login = ({ auth, token }) => {
   const navigate = useNavigate();
@@ -55,31 +56,41 @@ const Login = ({ auth, token }) => {
 
   console.log('login.jsx');
   return (
-    <form onSubmit={onSubmit}>
-      <input
-        name='email'
-        type='email'
-        placeholder='Email'
-        value={email}
-        onChange={onChange}
-      />
-      <input
-        name='password'
-        type='password'
-        placeholder='Password'
-        value={password}
-        onChange={onChange}
-      />
-      <input
-        name='signup'
-        id='signup'
-        type='checkbox'
-        checked={signup}
-        onChange={onChange}
-      />
-      <label htmlFor='signup'> Create a new account?</label>
-      <button disabled={submitBtn}>{signup ? 'Sign Up' : 'Sign In'}</button>
-    </form>
+    <div className={styles.container}>
+      <form onSubmit={onSubmit} className={styles.login}>
+        <h2 className={styles.title}>Todo List 💙</h2>
+        <input
+          className={styles.input}
+          name='email'
+          type='email'
+          placeholder='Email'
+          value={email}
+          onChange={onChange}
+        />
+        <input
+          className={styles.input}
+          name='password'
+          type='password'
+          placeholder='Password'
+          value={password}
+          onChange={onChange}
+        />
+        <section>
+          <input
+            name='signup'
+            id='signup'
+            type='checkbox'
+            checked={signup}
+            onChange={onChange}
+          />
+          <label htmlFor='signup'> Create a new account?</label>
+        </section>
+
+        <button className={styles.btn} disabled={submitBtn}>
+          {signup ? 'Sign Up' : 'Sign In'}
+        </button>
+      </form>
+    </div>
   );
 };
 

@@ -1,3 +1,21 @@
 .section {
   display: flex;
+  /* border: 2px solid green; */
+  margin-top: 0.3rem;
+  justify-content: center;
+}
+.li {
+  /* border: 2px solid yellow; */
+  margin-top: 0.3rem;
+}
+
+.checkbox {
+  margin-right: 1rem;
+}
+
+.todotext {
+  /* border: 2px solid red; */
+  width: 14rem;
+  display: inline-block;
+  text-align: start;
 }

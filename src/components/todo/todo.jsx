@@ -31,9 +31,14 @@ const Todo = memo(({ content, todoService, onDelete }) => {
   }, [completed]);
 
   return (
-    <li>
-      <input type='checkbox' checked={completed} onChange={onChecked} />
-      <span>{content.todo}</span>
+    <li className={styles.li}>
+      <input
+        className={styles.checkbox}
+        type='checkbox'
+        checked={completed}
+        onChange={onChecked}
+      />
+      <span className={styles.todotext}>{content.todo}</span>
       {update && (
         <div className={styles.section}>
           <form onSubmit={onUpdate}>

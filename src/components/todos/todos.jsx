@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState, memo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Todo from '../todo/todo';
+import styles from './todos.module.css';
 
 const Todos = memo(({ token, todoService }) => {
   const navigate = useNavigate();
@@ -42,22 +43,24 @@ const Todos = memo(({ token, todoService }) => {
 
   console.log('todos.jsx');
   return (
-    <>
-      <form onSubmit={onSubmit}>
-        <input ref={inputRef} type='text' />
-        <button>추가</button>
-      </form>
-      <ul>
-        {todos.map((item) => (
-          <Todo
-            key={item.id}
-            content={item}
-            todoService={todoService}
-            onDelete={onDelete}
-          />
-        ))}
-      </ul>
-    </>
+    <div className={styles.container}>
+      <section className={styles.todos}>
+        <form className={styles.form} onSubmit={onSubmit}>
+          <input className={styles.forminput} ref={inputRef} type='text' />
+          <button className={styles.btn}>추가</button>
+        </form>
+        <ul className={styles.ul}>
+          {todos.map((item) => (
+            <Todo
+              key={item.id}
+              content={item}
+              todoService={todoService}
+              onDelete={onDelete}
+            />
+          ))}
+        </ul>
+      </section>
+    </div>
   );
 });
 
