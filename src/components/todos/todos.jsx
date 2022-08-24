@@ -35,11 +35,6 @@ const Todos = memo(({ token, todoService }) => {
     inputRef.current.value = '';
   };
 
-  // const onCompleted = (e) => {
-  //   const check = e.target.checked;
-  //   setCompleted(check);
-  // };
-
   console.log('todos.jsx');
   return (
     <>
@@ -49,7 +44,7 @@ const Todos = memo(({ token, todoService }) => {
       </form>
       <ul>
         {todos.map((item) => (
-          <Todo key={item.id} content={item} />
+          <Todo key={item.id} content={item} todoService={todoService} />
         ))}
       </ul>
     </>
