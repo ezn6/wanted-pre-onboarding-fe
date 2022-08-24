@@ -1,7 +1,7 @@
 import React, { memo, useEffect, useState } from 'react';
 import styles from './todo.module.css';
 
-const Todo = memo(({ content, todoService }) => {
+const Todo = memo(({ content, todoService, onDelete }) => {
   const [update, setUpate] = useState(false);
   const [completed, setComopleted] = useState(content.isCompleted);
   const [text, setText] = useState(content.todo);
@@ -22,6 +22,10 @@ const Todo = memo(({ content, todoService }) => {
     setComopleted((click) => !click);
   };
 
+  const onDeleteTodo = () => {
+    onDelete(content.id);
+  };
+
   useEffect(() => {
     todoService.updateTodo(text, completed, content.id);
   }, [completed]);
@@ -40,7 +44,7 @@ const Todo = memo(({ content, todoService }) => {
         </div>
       )}
       {!update && <button onClick={onClick}>수정</button>}
-      {!update && <button>삭제</button>}
+      {!update && <button onClick={onDeleteTodo}>삭제</button>}
     </li>
   );
 });

@@ -35,6 +35,11 @@ const Todos = memo(({ token, todoService }) => {
     inputRef.current.value = '';
   };
 
+  const onDelete = async (id) => {
+    await todoService.deleteTodo(id);
+    await todoService.getTodos().then((data) => setTodos((prev) => data));
+  };
+
   console.log('todos.jsx');
   return (
     <>
@@ -44,7 +49,12 @@ const Todos = memo(({ token, todoService }) => {
       </form>
       <ul>
         {todos.map((item) => (
-          <Todo key={item.id} content={item} todoService={todoService} />
+          <Todo
+            key={item.id}
+            content={item}
+            todoService={todoService}
+            onDelete={onDelete}
+          />
         ))}
       </ul>
     </>

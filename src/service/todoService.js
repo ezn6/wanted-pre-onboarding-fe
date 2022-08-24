@@ -63,6 +63,23 @@ class TodoService {
     // console.log(data);
     return data;
   }
+
+  async deleteTodo(id) {
+    const token = this.tokenStorage.getToken();
+    const res = await fetch(`${this.url}/todos/${id}`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    // const data = await res.json();
+    if (res.status > 299 || res.status < 200) {
+      // alert(`${data.message}`);
+      throw new Error(`${res}`);
+    }
+    // console.log(data);
+    // return data;
+  }
 }
 
 export default TodoService;
