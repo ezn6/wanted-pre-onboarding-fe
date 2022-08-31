@@ -1,53 +1,43 @@
 class TodoService {
-  constructor(tokenStorage) {
+  constructor(tokenStorage, fetchClient) {
     this.tokenStorage = tokenStorage;
-    this.url = process.env.REACT_APP_BASE_URL;
+    this.fetchClient = fetchClient;
+  }
+
+  getHeaders() {
+    const token = this.tokenStorage.getToken();
+    return `Bearer ${token}`;
   }
 
   async getTodos() {
-    const token = this.tokenStorage.getToken();
-    const res = await fetch(`${this.url}/todos`, {
+    const data = this.fetchClient.fetch('/todos', {
       method: 'GET',
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: this.getHeaders(),
       },
     });
-    const data = await res.json();
-    if (res.status > 299 || res.status < 200) {
-      alert(`${data.message}`);
-      throw new Error(`${data.message}`);
-    }
-    // console.log(data);
     return data;
   }
 
   async createTodo(todo) {
-    const token = this.tokenStorage.getToken();
-    const res = await fetch(`${this.url}/todos`, {
+    const data = this.fetchClient.fetch('/todos', {
       method: 'POST',
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: this.getHeaders(),
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         todo,
       }),
     });
-    const data = await res.json();
-    if (res.status > 299 || res.status < 200) {
-      alert(`${data.message}`);
-      throw new Error(`${data.message}`);
-    }
-    console.log(data);
     return data;
   }
 
   async updateTodo(todo, isCompleted, id) {
-    const token = this.tokenStorage.getToken();
-    const res = await fetch(`${this.url}/todos/${id}`, {
+    const data = this.fetchClient.fetch(`/todos/${id}`, {
       method: 'PUT',
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: this.getHeaders(),
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
@@ -55,30 +45,17 @@ class TodoService {
         isCompleted,
       }),
     });
-    const data = await res.json();
-    if (res.status > 299 || res.status < 200) {
-      alert(`${data.message}`);
-      throw new Error(`${data.message}`);
-    }
-    // console.log(data);
     return data;
   }
 
   async deleteTodo(id) {
-    const token = this.tokenStorage.getToken();
-    const res = await fetch(`${this.url}/todos/${id}`, {
+    // 바로 return, 또는 위 함수들 처럼 하려면 await처리
+    return this.fetchClient.fetch(`/todos/${id}`, {
       method: 'DELETE',
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: this.getHeaders(),
       },
     });
-    // const data = await res.json();
-    if (res.status > 299 || res.status < 200) {
-      // alert(`${data.message}`);
-      throw new Error(`${res}`);
-    }
-    // console.log(data);
-    // return data;
   }
 }
 

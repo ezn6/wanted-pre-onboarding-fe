@@ -6,6 +6,7 @@ import styles from './todos.module.css';
 const Todos = memo(({ token, todoService }) => {
   const navigate = useNavigate();
   const [todos, setTodos] = useState([]);
+  const [flag, setFlag] = useState(true);
   const inputRef = useRef();
 
   // 토큰 없다면 /로 리다이렉트
@@ -23,7 +24,7 @@ const Todos = memo(({ token, todoService }) => {
         // console.log(data);
         setTodos(data);
       });
-  }, [todoService]);
+  }, [todoService, flag]);
 
   // 투두 리스트 추가하기
   const onSubmit = async (e) => {

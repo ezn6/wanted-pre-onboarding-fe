@@ -1,6 +1,5 @@
 class FetchClient {
   constructor(baseURL) {
-    // this.url = process.env.REACT_APP_BASE_URL;
     this.baseURL = baseURL;
   }
 
@@ -9,11 +8,16 @@ class FetchClient {
       ...options,
     });
 
+    if (res.status == 204) {
+      return;
+    }
+
     let data;
     try {
       data = await res.json();
     } catch (error) {
       console.error(error);
+      console.log(res.status);
     }
 
     if (res.status > 299 || res.status < 200) {

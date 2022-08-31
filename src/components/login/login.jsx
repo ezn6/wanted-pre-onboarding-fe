@@ -40,9 +40,9 @@ const Login = ({ auth, token }) => {
   const onSubmit = async (e) => {
     e.preventDefault();
     if (signup) {
-      await auth.signUp(email, password);
+      await auth.signUp('signup', email, password);
     } else {
-      await auth.signIn(email, password);
+      await auth.signIn('signin', email, password);
       navigate('/todo');
     }
   };
@@ -75,6 +75,7 @@ const Login = ({ auth, token }) => {
           value={password}
           onChange={onChange}
         />
+
         <section>
           <input
             name='signup'
@@ -86,7 +87,12 @@ const Login = ({ auth, token }) => {
           <label htmlFor='signup'> Create a new account?</label>
         </section>
 
-        <button className={styles.btn} disabled={submitBtn}>
+        <button
+          type='submit'
+          onSubmit={onSubmit}
+          className={styles.btn}
+          disabled={submitBtn}
+        >
           {signup ? 'Sign Up' : 'Sign In'}
         </button>
       </form>

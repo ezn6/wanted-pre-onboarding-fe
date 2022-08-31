@@ -1,13 +1,14 @@
 //1. auth
 //2. 로컬스토리지 저장
 class Auth {
-  constructor(tokenStorage) {
+  constructor(tokenStorage, fetchClient) {
     this.tokenStorage = tokenStorage;
+    this.fetchClient = fetchClient;
     this.url = process.env.REACT_APP_BASE_URL;
   }
 
-  async signUp(email, password) {
-    const res = await fetch(`${this.url}/auth/signup`, {
+  async signOptions(value, email, password) {
+    const data = await this.fetchClient.fetch(`/auth/${value}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -17,37 +18,15 @@ class Auth {
         password,
       }),
     });
-    const data = await res.json();
-    if (res.status > 299 || res.status < 200) {
-      alert(`${data.message}`);
-      throw new Error(`${data.message}`);
-    }
-    console.log(data);
-    this.tokenStorage.saveToken(data.access_token);
     return data;
   }
 
-  async signIn(email, password) {
-    const res = await fetch(`${this.url}/auth/signin`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email,
-        password,
-      }),
-    });
-    // .then((response) => response.json())
-    // .then((response) => console.log(response));
+  async signUp(value, email, password) {
+    return this.signOptions(value, email, password);
+  }
 
-    const data = await res.json();
-    if (res.status > 299 || res.status < 200) {
-      alert(`${data.message}`);
-      throw new Error(`${data.message}`);
-    }
-    console.log(data);
-    console.log(res);
+  async signIn(value, email, password) {
+    const data = await this.signOptions(value, email, password);
     this.tokenStorage.saveToken(data.access_token);
     return data;
   }
